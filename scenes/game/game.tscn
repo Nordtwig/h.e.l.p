@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7m8jufuxuogo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dd865"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_adee0"]
+sky_material = SubResource("ProceduralSkyMaterial_dd865")
+
+[sub_resource type="Environment" id="Environment_b8lh8"]
+background_mode = 2
+sky = SubResource("Sky_adee0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xmv84"]
+size = Vector3(3, 0.1, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6ngc"]
+size = Vector3(3, 2.6, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4xch1"]
+size = Vector3(0.1, 2.6, 6)
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b8lh8")
+
+[node name="Station" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Station"]
+mesh = SubResource("BoxMesh_xmv84")
+
+[node name="WallShort" type="MeshInstance3D" parent="Station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24248, -2.95048)
+mesh = SubResource("BoxMesh_s6ngc")
+
+[node name="Floor2" type="MeshInstance3D" parent="Station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.50082, 0)
+mesh = SubResource("BoxMesh_xmv84")
+
+[node name="Wall" type="MeshInstance3D" parent="Station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53556, 1.25228, 0)
+mesh = SubResource("BoxMesh_4xch1")
+
+[node name="Wall2" type="MeshInstance3D" parent="Station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54721, 1.252, 0)
+mesh = SubResource("BoxMesh_4xch1")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Station"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.30012, 0)
+spot_range = 4.28252
+spot_angle = 80.0077
