@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7m8jufuxuogo"]
+[gd_scene load_steps=9 format=3 uid="uid://b7m8jufuxuogo"]
+
+[ext_resource type="PackedScene" uid="uid://cnjw52j5xwsva" path="res://scenes/player/player.tscn" id="1_np5l4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dd865"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,6 +18,9 @@ glow_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_xmv84"]
 size = Vector3(3, 0.1, 6)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_61sxe"]
+data = PackedVector3Array(-1.5, 0.05, 3, 1.5, 0.05, 3, -1.5, -0.05, 3, 1.5, 0.05, 3, 1.5, -0.05, 3, -1.5, -0.05, 3, 1.5, 0.05, -3, -1.5, 0.05, -3, 1.5, -0.05, -3, -1.5, 0.05, -3, -1.5, -0.05, -3, 1.5, -0.05, -3, 1.5, 0.05, 3, 1.5, 0.05, -3, 1.5, -0.05, 3, 1.5, 0.05, -3, 1.5, -0.05, -3, 1.5, -0.05, 3, -1.5, 0.05, -3, -1.5, 0.05, 3, -1.5, -0.05, -3, -1.5, 0.05, 3, -1.5, -0.05, 3, -1.5, -0.05, -3, 1.5, 0.05, 3, -1.5, 0.05, 3, 1.5, 0.05, -3, -1.5, 0.05, 3, -1.5, 0.05, -3, 1.5, 0.05, -3, -1.5, -0.05, 3, 1.5, -0.05, 3, -1.5, -0.05, -3, 1.5, -0.05, 3, 1.5, -0.05, -3, -1.5, -0.05, -3)
+
 [sub_resource type="BoxMesh" id="BoxMesh_s6ngc"]
 size = Vector3(3, 2.6, 0.1)
 
@@ -32,8 +37,13 @@ environment = SubResource("Environment_b8lh8")
 [node name="Floor" type="MeshInstance3D" parent="Station"]
 mesh = SubResource("BoxMesh_xmv84")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Station/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Station/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_61sxe")
+
 [node name="WallShort" type="MeshInstance3D" parent="Station"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24248, -2.95048)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.242, -2.95)
 mesh = SubResource("BoxMesh_s6ngc")
 
 [node name="Floor2" type="MeshInstance3D" parent="Station"]
@@ -52,3 +62,6 @@ mesh = SubResource("BoxMesh_4xch1")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.30012, 0)
 spot_range = 4.28252
 spot_angle = 80.0077
+
+[node name="Player" parent="." instance=ExtResource("1_np5l4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.144298, 2.81773)
