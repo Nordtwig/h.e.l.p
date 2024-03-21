@@ -1,11 +1,22 @@
 extends CharacterBody3D
 
 
+@export var mouse_sensitivity: float = 0.1
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _process(delta) -> void:
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
 
 
 func _physics_process(delta):
@@ -20,7 +31,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -34,4 +45,4 @@ func _physics_process(delta):
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate(
+		rotate(Vector3.UP, -event.relative.x * get_process_delta_time() * mouse_sensitivity)
